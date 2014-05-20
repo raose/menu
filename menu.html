@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>menu</title>
+<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<meta name="description" content="菜单" />
+<meta name="keywords" content="menu, 菜单" />
+<link rel="stylesheet" type="text/css" href="css/base.css" />
+<link rel="stylesheet" type="text/css" href="css/menu.css" />
+</head>
+<!-- browser check -->
+<!--[if lt IE 7]> <body class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <body class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <body class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>    <body class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!--> <body class="no-js"> <!--<![endif]-->
+<div id="wrapper">
+	<div id="nav">
+		<div class="centered fix">
+			<ul class="links fleft fix">
+				<li class="item">
+					<a href="/item1.html" class="parent iblock">
+						<span>列表1</span>
+						<i class="icon" data-icon="down-dir"></i>
+					</a>
+					<div class="subitem">
+						<a href="/item1.1.html" class="block">子列1.1</a>
+						<a href="/item1.2.html" class="block">子列1.2</a>
+					</div>
+				</li>
+				<li class="item">
+					<a href="/item2.html" class="parent iblock">
+						<span>列表2</span>
+					</a>
+				</li>
+				<li class="item">
+					<a href="/item3.html" class="parent iblock">
+						<span>列表3</span>
+					</a>
+				</li>
+				<li class="item on">
+					<a href="/item4.1.html" class="parent iblock">
+						<span>列表4</span>
+						<i class="icon" data-icon="down-dir"></i>
+					</a>
+					<div class="subitem">
+						<a href="/item4.1.html" class="block">子列4.1</a>
+						<a href="/item4.2.html" class="block">子列4.2</a>
+						<a href="/item4.3.html" class="block active">子列4.3</a>
+						<a href="/item4.4.html" class="block">子列4.4</a>
+						<a href="/item4.5.html" class="block">子列4.5</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="body">
+		<div class="body centered">
+	    <div class="left-panel">
+	      <div class="nav-outer">
+	        <ul class="nav">
+	          <li class="nav-li not-current-submenu">
+	            <a href="#li1" data-h1="li1" class="menu-link">
+	              <i class="txt">列表1</i>
+	            </a>
+	          </li>
+	          <li class="nav-li not-current-submenu">
+	            <a href="#li2" data-h1="li2" class="menu-link">
+	              <i class="txt">列表2</i>
+	            </a>
+	          </li>
+	          <li class="nav-li not-current-submenu">
+	            <a href="#li3" data-h1="li3" class="menu-link">
+	              <i class="txt">列表3</i>
+	            </a>
+	          </li>
+	          <li class="nav-li not-current-submenu">
+	            <a href="#li4.1" class="menu-link">
+	              <i class="txt">列表4</i>
+	              <i class="icon has-submenu" data-icon="down-dir"></i>
+	            </a>
+	            <ul class="submenu">
+	              <li class="submenu-li">
+	                <a href="#li4.1" data-h1="li4.1" class="submenu-link">
+	                  <i class="icon" data-icon="right-dir"></i>
+	                  <i class="txt">子列4.1</i>
+	                </a>
+	              </li>
+	              <li class="submenu-li">
+	                <a href="#li4.2" data-h1="li4.2" class="submenu-link">
+	                  <i class="icon" data-icon="right-dir"></i>
+	                  <i class="txt">子列4.2</i>
+	                </a>
+	              </li>
+	            </ul>
+	          </li>
+	          <li class="nav-li not-current-submenu">
+	            <a href="#li5" data-h1="li5" class="menu-link">
+	              <i class="txt">列表5</i>
+	            </a>
+	          </li>
+	        </ul>
+	      </div>
+	    </div>
+	    <div class="main">
+	    </div>
+	  </div>
+	</div>
+</div>
+<script src="js/vender/sea.js" id="seajsnode"></script>
+<script>
+//seajs
+seajs.config({
+  base: './js'
+  ,alias: {
+    'jquery': 'vender/jquery-1.11.0.min.js'
+  }
+})
+</script> 
+<script>
+seajs.use(['jquery', 'src/plugins.js'], function($, qida) {
+	qida.initIcons()
+
+	//hover 
+  $('body').on('mouseenter', '#nav .item, .mouseover', function() {
+    $(this).addClass('hover')
+  }).on('mouseleave', '#nav .item, .mouseover', function() {
+    $(this).removeClass('hover')
+  })
+
+	//nav
+	$('.nav a').click(function() {
+		var t = $(this)
+		,p = t.parents('.nav-li')
+		,isSub = t.hasClass('submenu-link')
+		,h1 = t.data('h1')
+		
+		$('.nav li').removeClass('current')
+		t.parent().addClass('current')
+		p.addClass('menu-open').removeClass('not-current-submenu')
+		.siblings('.nav-li').removeClass('menu-open').addClass('not-current-submenu')
+		if(qida.ie6) p.removeClass('mouseover hover')
+      .siblings('.nav-li').addClass('mouseover')
+		if (!h1) return p.find('.submenu-link').eq(0).trigger('click')
+	})
+})
+</script>
+</body>
+</html>
